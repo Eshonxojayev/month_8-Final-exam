@@ -1,38 +1,49 @@
-from fastapi import FastAPI, security, HTTPException
-from database import session, ENGINE
-from order_router import order_router
-from product_router import product_router
+from fastapi import FastAPI
+from auth import auth_router
+from category import category_router
+from orders import order_router
+from product import product_router
+# from fastapi_jwt_auth import AuthJWT
+# from schemas import JwtModel
 
-from fastapi import APIRouter
-from fastapi.encoders import jsonable_encoder
-from database import session, ENGINE
-from models import Product
+
+
+
 
 app = FastAPI()
-# app.include_router(order_router)
-session = session(bind=ENGINE)
 
 
-@product_router.get("/product")
-async def get_products():
-    products = session.query(Product).all()
-    context = [
-        {
-            "id": product.id,
-            "name": product.name,
-            "description": product.description,
-            "price": product.price,
-            "count": product.count,
-        }
-        for product in products
+app.include_router(auth_router)
+app.include_router(category_router)
+app.include_router(order_router)
+app.include_router(product_router)
 
-    ]
-    return jsonable_encoder(context)
-
-
-
-@app.get("/api")
+@app.get("/")
 async def landing():
     return {
         "message": "This is landing page"
+    }
+
+@app.get("/user")
+async def intro():
+    return {
+        "message": "user page"
+    }
+
+@app.get("/user/{id}")
+async def intro(id: int):
+    return {
+        "message": f"user - {id}"
+    }
+
+@app.post("/user")
+async def intro():
+    return {
+        "message": "This is post request"
+    }
+
+@app.get("/test2")
+async def test2():
+    return {
+        "message": "This is test page"
     }

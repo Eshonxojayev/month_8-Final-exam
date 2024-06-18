@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from typing import Optional
 
+
+
 class RegisterModel(BaseModel):
     id: Optional[int]
     first_name: str
@@ -10,6 +12,21 @@ class RegisterModel(BaseModel):
     password: str
     is_staff: Optional[bool]
     is_active: Optional[bool]
+
+    class Config:
+        orm_mode = True,
+        schema_extra = {
+            "example": {
+                "id": 1,
+                "first_name": "John",
+                "last_name": "Smith",
+                "username": "pipsudo",
+                "password": "******",
+                "email": "example@gamil.com",
+                "is_staff": True,
+                "is_active": True
+            }
+        }
 
 class LoginModel(BaseModel):
     username: str
@@ -36,3 +53,4 @@ class OrderModel(BaseModel):
 
 class UserOrder(BaseModel):
     username: str
+
