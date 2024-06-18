@@ -40,4 +40,3 @@ async def create(category: CategoryModel):
 
     return category
 
-
