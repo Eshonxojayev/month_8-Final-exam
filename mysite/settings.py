@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     'account',
     'drf_spectacular',
     'import_export',
-
 ]
 
 MIDDLEWARE = [
