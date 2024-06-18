@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'products',
     'account',
     'drf_spectacular',
+    'import_export',
 
 ]
 
